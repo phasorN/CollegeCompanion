@@ -28,7 +28,7 @@ class Period(models.Model):
 class Attendance(models.Model):
     period = models.ForeignKey(Period, on_delete=models.CASCADE, null=False)
     date = models.DateField(null=False)
-    value_int = models.IntegerField(default=0)
+    value_int = models.IntegerField(default=0, null=False)
     value_str = models.CharField(max_length=200, default="Not Marked")
 
     def __str__(self):
