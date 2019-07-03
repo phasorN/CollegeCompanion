@@ -91,7 +91,7 @@ def custom404(request, exception):
                                 content_type='application/json')
 
 
-def custom500(request, exception):
+def custom500(request):
     # return JsonResponse(status=404, content_type='application/json', content={'error': 'This page does not exists.'})
 
     return HttpResponseNotFound(content=json.dumps({"error": "An internal Server Error Occured"}),
