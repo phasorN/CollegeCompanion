@@ -23,7 +23,7 @@ import json
 def api_root(request, format=None):
     return Response({
         'users': reverse('user-create-and-details', request=request, format=format),
-        'expenses': reverse('expenses-list', request=request, format=format)
+        'expenses': reverse('subject-create-and-list', request=request, format=format)
     })
 
 
