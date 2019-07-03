@@ -79,7 +79,7 @@ class ExpensesCreateListView(generics.ListCreateAPIView):
 
 
 class ExpensesDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsOwner]  # Only Owner should be allowed to see the Expense.
+    permission_classes = [And(permissions.IsAuthenticated, IsOwner)]  # Only Owner should be allowed to see the Expense.
     queryset = models.Expense.objects.all()
     serializer_class = ExpenseSerializer
 
