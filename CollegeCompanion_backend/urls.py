@@ -16,7 +16,6 @@ urlpatterns = [
     path('expenses/<int:pk>/', expenses_views.ExpensesDetail.as_view(), name="expenses-detail"),
 
     path('subject/', attendance_views.SubjectCreateListView.as_view(), name="subject-create-and-list"),
-
     path('period/', attendance_views.PeriodCreateListView.as_view(), name="period-create-and-list"),
 
     path('attendance/', attendance_views.AttendanceCreateListView.as_view(), name="attendance-create-and-list")

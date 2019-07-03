@@ -22,7 +22,7 @@ import json
 @api_view(['GET'])
 def api_root(request, format=None):
     return Response({
-        'users': reverse('user-list', request=request, format=format),
+        'users': reverse('user-create-and-details', request=request, format=format),
         'expenses': reverse('expenses-list', request=request, format=format)
     })
 
