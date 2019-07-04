@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '192.168.1.108',
     '127.0.0.1',
     '192.168.43.118',
+    'collegecompanion.pythonanywhere.com',
     ]
 
 

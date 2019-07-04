@@ -15,14 +15,14 @@ urlpatterns = [
     path('expenses/', expenses_views.ExpensesCreateListView.as_view(), name="expenses-create-and-list"),
     path('expenses/<int:pk>/', expenses_views.ExpensesDetail.as_view(), name="expenses-detail"),
 
-    path('subject/', attendance_views.SubjectCreateListView.as_view(), name="subject-create-and-list"),
-    path('subject/<int:pk>/', attendance_views.SubjectDetailView.as_view(), name='subject-detail'),
+    path('subjects/', attendance_views.SubjectCreateListView.as_view(), name="subject-create-and-list"),
+    path('subjects/<int:pk>/', attendance_views.SubjectDetailView.as_view(), name='subject-detail'),
 
-    path('period/', attendance_views.PeriodCreateListView.as_view(), name="period-create-and-list"),
-    path('period/<int:pk>/', attendance_views.PeriodDetailView.as_view(), name="period-detail"),
+    path('periods/', attendance_views.PeriodCreateListView.as_view(), name="period-create-and-list"),
+    path('periods/<int:pk>/', attendance_views.PeriodDetailView.as_view(), name="period-detail"),
 
-    path('attendance/', attendance_views.AttendanceCreateListView.as_view(), name="attendance-create-and-list"),
-    path('attendance/<int:pk>/', attendance_views.AttendanceDetailView.as_view(), name="attendance-detail"),
+    path('attendances/', attendance_views.AttendanceCreateListView.as_view(), name="attendance-create-and-list"),
+    path('attendances/<int:pk>/', attendance_views.AttendanceDetailView.as_view(), name="attendance-detail"),
 ]
 handler404 = 'expenses.views.custom404'
 handler500 = 'expenses.views.custom500'
