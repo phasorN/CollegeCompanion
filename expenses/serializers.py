@@ -3,7 +3,7 @@ from rest_framework import serializers
 from expenses import models
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializerWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'groups', 'password')
@@ -30,6 +30,19 @@ class UserSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response.pop('password')
+
+        return response
+
+
+class UserSerializerReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'first_name', 'last_name')
+        
 
 
 class ExpenseSerializer(serializers.ModelSerializer):

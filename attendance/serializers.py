@@ -58,3 +58,21 @@ class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Attendance
         fields = ('id', 'period', 'date', 'value_int', 'value_str')
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+
+        # Changing the value_str depending on value_int
+        value_int = response['value_int']
+        
+        if value_int == -1:
+            value_str = "Not Marked"
+        elif value_int == 0:
+            value_str = "Absent"
+        elif value_int == 1:
+            value_str = "Present"
+
+        response['value_str'] = value_str
+
+        return response
+

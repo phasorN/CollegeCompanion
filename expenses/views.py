@@ -1,6 +1,7 @@
 # from django.contrib.auth.models import User
 from rest_framework import permissions
-from expenses.serializers import UserSerializer, ExpenseSerializer
+from expenses.serializers import UserSerializerReadSerializer, \
+        UserSerializerWriteSerializer, ExpenseSerializer
 from expenses import models
 
 from rest_condition import And, Or
@@ -49,12 +50,17 @@ class IsUserItself(permissions.BasePermission):
 
 
 class UserSelfDetailsOrCreate(generics.ListCreateAPIView):
-    serializer_class = UserSerializer
     permission_classes = [Or(
         # Only GET and POST allowed, all other are Not Allowed.
         And(IsReadyOnlyRequest, permissions.IsAuthenticated),  # Any authenticated user can get its details.
         IsPostRequest,  # Anyone should be allowed to POST, i.e. to create new user.
     )]
+
+    def get_serializer_class(self):
+        if self.request.method in permissions.SAFE_METHODS:
+            return UserSerializerReadSerializer
+        else:
+            return UserSerializerWriteSerializer
 
     def get_queryset(self):
         return models.User.objects.filter(pk=self.request.user.pk)
@@ -64,7 +70,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     # Only UserItself should be allowed to see/update/delete the User.
     permission_classes = [And(IsUserItself, permissions.IsAuthenticated)]
     queryset = models.User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = UserSerializerReadSerializer
 
 
 class ExpensesCreateListView(generics.ListCreateAPIView):

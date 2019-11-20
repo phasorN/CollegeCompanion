@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
 # Create your models here.
 class Subject(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -19,16 +18,17 @@ class Period(models.Model):
     time = models.TimeField(null=False)
     day = models.PositiveIntegerField(null=False)
     venue = models.CharField(max_length=200, default="---")
-    period_number = models.PositiveIntegerField()
+    period_number = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.subject.title + " " + str(self.day)
 
 
+
 class Attendance(models.Model):
     period = models.ForeignKey(Period, on_delete=models.CASCADE, null=False)
     date = models.DateField(null=False)
-    value_int = models.IntegerField(default=0, null=False)
+    value_int = models.IntegerField(default=-1, null=False)
     value_str = models.CharField(max_length=200, default="Not Marked")
 
     def __str__(self):

@@ -51,7 +51,7 @@ class PeriodCreateListView(generics.ListCreateAPIView):
     serializer_class = serializers.PeriodSerializer
 
     def get_queryset(self):
-        queryset_full = ""
+        queryset_full = []
         subjects = models.Subject.objects.filter(user=self.request.user)
         # print(subjects.first())
         i = 0
@@ -63,7 +63,9 @@ class PeriodCreateListView(generics.ListCreateAPIView):
                 queryset_full = queryset_full | queryset_temp
 
             i = i + 1
-        return queryset_full.order_by('day', 'time')
+            return queryset_full.order_by('day', 'time')
+
+        return []
         # print(models.Period.objects.filter(subject=subjects.first()))
         # return models.Period.objects.filter(subject=subjects.first())
 
@@ -75,7 +77,7 @@ class AttendanceCreateListView(generics.ListCreateAPIView):
     # queryset = models.Attendance.objects
 
     def get_queryset(self):
-        periods = ""
+        periods = []
         subjects = models.Subject.objects.filter(user=self.request.user)
         i = 0
         for s in subjects:
@@ -89,7 +91,10 @@ class AttendanceCreateListView(generics.ListCreateAPIView):
         # periods = models.Period.objects.filter(subject=subjects.first())
         print(periods)
         # return periods
-        queryset_full = models.Attendance.objects.filter(period=periods.first())
+        if len(periods) > 0:
+            queryset_full = models.Attendance.objects.filter(period=periods[0])
+        else:
+            queryset_full = []
         print(type(queryset_full))
         for p in periods:
             print(p.subject.title + " | " + str(p.id))
